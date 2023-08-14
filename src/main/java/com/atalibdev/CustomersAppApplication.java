@@ -15,7 +15,7 @@ public class CustomersAppApplication {
         SpringApplication.run(CustomersAppApplication.class, args);
     }
 
-    @Bean
+    //@Bean
     CommandLineRunner runner(CustomerRepository customerRepository) {
         Customer alex = new Customer("Alex", "alex@google.com", 24);
         Customer jamila = new Customer("Jamila", "jamila@finance.com", 19);

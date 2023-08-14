@@ -1,0 +1,8 @@
+JDBC:
+    - Java Database Connectivity is an application Programming Interface for
+    Programming language Java, which defines how client may access to a database
+
+JDBCTemplate:
+    - Simplifies the use of JDBC and help to avoid common errors.
+      It executes core JDBC workflow, leaving application code to provide SQL and
+      extract results
