@@ -17,7 +17,7 @@ public class Customer {
             allocationSize = 1
     )
     @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
+            strategy = GenerationType.AUTO,
             generator = "customer_id_sequence"
     )
     private Long id;
