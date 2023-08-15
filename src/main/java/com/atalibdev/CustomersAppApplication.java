@@ -8,7 +8,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.List;
 import java.util.Random;
 
 @SpringBootApplication
@@ -26,7 +25,6 @@ public class CustomersAppApplication {
                     faker.internet().safeEmailAddress(),
                     random.nextInt(16, 99)
             );
-
             customerRepository.save(customer);
         };
     }

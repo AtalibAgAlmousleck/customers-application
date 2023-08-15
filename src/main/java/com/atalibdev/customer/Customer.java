@@ -1,13 +1,11 @@
 package com.atalibdev.customer;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(
         name = "customer",
@@ -21,13 +19,13 @@ import lombok.NoArgsConstructor;
 public class Customer {
     @Id
     @SequenceGenerator(
-            name = "customer_id_sequence",
-            sequenceName = "customer_id_sequence",
+            name = "customer_id_seq",
+            sequenceName = "customer_id_seq",
             allocationSize = 1
     )
     @GeneratedValue(
-            strategy = GenerationType.AUTO,
-            generator = "customer_id_sequence"
+            strategy = GenerationType.SEQUENCE,
+            generator = "customer_id_seq"
     )
     private Long id;
     @Column(nullable = false)
@@ -37,9 +35,11 @@ public class Customer {
     @Column(nullable = false)
     private Integer age;
 
-    public Customer(String name, String email, Integer age) {
+    public Customer(String name,
+                    String email, Integer age) {
         this.name = name;
         this.email = email;
         this.age = age;
     }
+
 }

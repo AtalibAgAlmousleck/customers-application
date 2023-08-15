@@ -1,6 +1,7 @@
 package com.atalibdev.customer;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,14 +11,20 @@ import java.util.Optional;
 public class CustomerJDBCDataAccessService implements CustomerDao {
 
     private final JdbcTemplate jdbcTemplate;
+    private final CustomerRowMapper customerRowMapper;
 
-    public CustomerJDBCDataAccessService(JdbcTemplate jdbcTemplate) {
+    public CustomerJDBCDataAccessService(JdbcTemplate jdbcTemplate,
+                                         CustomerRowMapper customerRowMapper) {
         this.jdbcTemplate = jdbcTemplate;
+        this.customerRowMapper = customerRowMapper;
     }
 
     @Override
     public List<Customer> selectAllCustomers() {
-        return null;
+        var sql = """
+                SELECT id, name, email, age FROM customer
+                """;
+        return jdbcTemplate.query(sql, customerRowMapper);
     }
 
     @Override
@@ -27,7 +34,17 @@ public class CustomerJDBCDataAccessService implements CustomerDao {
 
     @Override
     public void insertCustomer(Customer customer) {
-
+        var sql = """
+                INSERT INTO customer (name, email, age)
+                VALUES (?, ?, ?)
+                """;
+        int result = jdbcTemplate.update(
+                sql,
+                customer.getName(),
+                customer.getEmail(),
+                customer.getAge()
+        );
+        System.out.println("Inserted data: " + result);
     }
 
     @Override
