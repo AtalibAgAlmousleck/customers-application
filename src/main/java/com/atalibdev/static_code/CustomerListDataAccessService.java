@@ -1,5 +1,7 @@
-package com.atalibdev.customer;
+package com.atalibdev.static_code;
 
+import com.atalibdev.customer.Customer;
+import com.atalibdev.customer.CustomerDao;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -7,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository("list")
-public class CustomerListDataAccessService implements CustomerDao{
+public class CustomerListDataAccessService implements CustomerDao {
     // db
     private static final List<Customer> customers;
 
