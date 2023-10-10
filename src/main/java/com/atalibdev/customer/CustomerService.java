@@ -34,7 +34,8 @@ public class CustomerService {
         String email = request.email();
         if (customerDao.existCustomerWithEmail(email)) {
             throw new DuplicateResourceException(
-                    "Customer with the given email: [%s] taken".formatted(email)
+                    "Customer with the given email: [%s] taken"
+                            .formatted(email)
             );
         }
         Customer customer = new Customer(

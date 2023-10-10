@@ -1,7 +1,6 @@
 package com.atalibdev.customer;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,7 +28,13 @@ public class CustomerJDBCDataAccessService implements CustomerDao {
 
     @Override
     public Optional<Customer> selectCustomerById(Long id) {
-        return Optional.empty();
+        var sql = """
+                SELECT id, name, email, age
+                FROM customer WHERE id = ?
+                """;
+        return jdbcTemplate.query(sql, customerRowMapper, id)
+                .stream()
+                .findFirst();
     }
 
     @Override
