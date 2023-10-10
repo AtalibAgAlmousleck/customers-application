@@ -54,21 +54,54 @@ public class CustomerJDBCDataAccessService implements CustomerDao {
 
     @Override
     public boolean existCustomerWithEmail(String email) {
-        return false;
+        var sql = """
+                SELECT count(id) FROM
+                customer WHERE email = ?
+                """;
+        Long count = jdbcTemplate.queryForObject(sql, Long.class, email);
+
+        return count != null && count > 0;
     }
 
     @Override
     public boolean existCustomerWithId(Long id) {
-        return false;
+        var sql = """
+                SELECT count(id) FROM
+                customer WHERE id = ?
+                """;
+        Long count = jdbcTemplate.queryForObject(sql, Long.class, id);
+        return count != null && count > 0;
     }
 
     @Override
     public void deleteCustomerById(Long customerId) {
-
+        var sql = """
+                DELETE FROM customer WHERE id = ?
+                """;
+        int result = jdbcTemplate.update(sql, customerId);
+        System.out.println("Customer with id was deleted%n" + result);
     }
 
     @Override
-    public void updateCustomer(Customer customer) {
-
+    public void updateCustomer(Customer update) {
+        if (update.getName() != null) {
+            String sql = "UPDATE customer SET name = ? WHERE id = ?";
+            int result = jdbcTemplate.update(
+                    sql, update.getName(),
+                    update.getId());
+            System.out.println("Update customer name result: " + result);
+        }
+        if (update.getAge() != null) {
+            String sql = "UPDATE customer SET age = ? WHERE id = ?";
+            int result = jdbcTemplate.update(sql,
+                    update.getAge(), update.getId());
+            System.out.println("Update customer age result: " + result);
+        }
+        if (update.getEmail() != null) {
+            String sql = "UPDATE customer SET email = ? WHERE id = ?";
+            int result = jdbcTemplate.update(sql,
+                    update.getEmail(), update.getId());
+            System.out.println("Update customer email result: " + result);
+        }
     }
 }
