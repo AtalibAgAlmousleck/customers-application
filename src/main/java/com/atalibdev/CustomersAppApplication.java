@@ -23,7 +23,7 @@ public class CustomersAppApplication {
             Customer customer = new Customer(
                     faker.name().fullName(),
                     faker.internet().safeEmailAddress(),
-                    random.nextInt(16, 99)
+                    random.nextInt(16, 45)
             );
             customerRepository.save(customer);
         };
