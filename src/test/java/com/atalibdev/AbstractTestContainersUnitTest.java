@@ -28,9 +28,9 @@ public abstract class AbstractTestContainersUnitTest {
     @Container
     protected static final PostgreSQLContainer<?> postgreSQLContainer =
             new PostgreSQLContainer<>("postgres:latest")
-                    .withDatabaseName("customer-dao-unit-test")
+                    .withDatabaseName("full_stack_customer")
                     .withUsername("postgres")
-                    .withPassword("password");
+                    .withPassword("Admin");
 
     @DynamicPropertySource
     private static void  registerDataSourceProperties(DynamicPropertyRegistry registry) {
@@ -44,7 +44,6 @@ public abstract class AbstractTestContainersUnitTest {
                 "spring.datasource.password",
                 postgreSQLContainer::getPassword);
     }
-
     private static DataSource getDataSource() {
          return DataSourceBuilder
                 .create()
@@ -57,7 +56,6 @@ public abstract class AbstractTestContainersUnitTest {
     protected static JdbcTemplate getJdbcTemplate() {
         return new JdbcTemplate(getDataSource());
     }
-
     protected static final Faker FAKER = new Faker();
 
 }

@@ -17,7 +17,7 @@ public class CustomersAppApplication {
     }
     @Bean
     CommandLineRunner runner(CustomerRepository customerRepository) {
-        return args -> {
+         return args -> {
             var faker = new Faker();
             Random random = new Random();
             Customer customer = new Customer(

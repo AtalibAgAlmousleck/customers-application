@@ -81,16 +81,6 @@ class CustomerJDBCDataAccessServiceTest
     }
 
     @Test
-    void insertCustomer() {
-        // Given
-
-
-        // When
-
-        // Then
-    }
-
-    @Test
     void existCustomerWithEmail() {
         // Given
         String email = FAKER.internet().safeEmailAddress() + "-" + UUID.randomUUID();

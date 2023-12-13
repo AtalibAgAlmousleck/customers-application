@@ -64,7 +64,6 @@ class CustomerServiceTest {
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage("Customer with id [%s] not found".formatted(id));
     }
-
     @Test
     void addCustomer() {
         // Given
@@ -90,7 +89,6 @@ class CustomerServiceTest {
         assertThat(capturedCustomer.getEmail()).isEqualTo(request.email());
         assertThat(capturedCustomer.getAge()).isEqualTo(request.age());
     }
-
     @Test
     void throwExceptionIfTheEmailTaking() {
         // Given
@@ -107,7 +105,6 @@ class CustomerServiceTest {
         // Then
         verify(customerDao, never()).insertCustomer(any());
     }
-
     @Test
     void deleteCustomerById() {
         // Given
@@ -120,7 +117,6 @@ class CustomerServiceTest {
         // Then
         verify(customerDao).deleteCustomerById(id);
     }
-
     @Test
     void throwExceptionWhenCustomerIdNotFound() {
         // Given
@@ -136,7 +132,6 @@ class CustomerServiceTest {
         // Then
         verify(customerDao, never()).deleteCustomerById(id);
     }
-
     @Test
     void updateCustomer() {
         // Given
@@ -165,7 +160,6 @@ class CustomerServiceTest {
         assertThat(capturedCustomer.getEmail()).isEqualTo(updateRequest.email());
         assertThat(capturedCustomer.getAge()).isEqualTo(updateRequest.age());
     }
-
     @Test
     void updateCustomerName() {
         // Given
@@ -194,7 +188,6 @@ class CustomerServiceTest {
         assertThat(capturedCustomer.getEmail()).isEqualTo(customer.getEmail());
         assertThat(capturedCustomer.getAge()).isEqualTo(customer.getAge());
     }
-
     @Test
     void updateCustomerEmail() {
         // Given
@@ -223,7 +216,6 @@ class CustomerServiceTest {
         assertThat(capturedCustomer.getEmail()).isEqualTo(newEmail);
         assertThat(capturedCustomer.getAge()).isEqualTo(customer.getAge());
     }
-
     @Test
     void updateCustomerAge() {
         // Given
@@ -252,7 +244,6 @@ class CustomerServiceTest {
         assertThat(capturedCustomer.getEmail()).isEqualTo(customer.getEmail());
         assertThat(capturedCustomer.getAge()).isEqualTo(updateRequest.age());
     }
-
     @Test
     void throwExceptionWenUpdatingCustomerEmailWithATakingEmailAddress() {
         // Given
@@ -273,11 +264,9 @@ class CustomerServiceTest {
         assertThatThrownBy(() -> customerService.updateCustomer(id, updateRequest))
                 .isInstanceOf(DuplicateResourceException.class)
                 .hasMessage("email already taken");
-
         // Then
         verify(customerDao, never()).updateCustomer(any());
     }
-
     @Test
     void throwExceptionWhenCustomerHasNoChanges() {
         // Given
@@ -288,13 +277,11 @@ class CustomerServiceTest {
 
         CustomerUpdateRequest updateRequest = new CustomerUpdateRequest(
                 customer.getName(), customer.getEmail(), customer.getAge());
-
         // When
         //customerService.updateCustomer(id, updateRequest);
         assertThatThrownBy(() -> customerService.updateCustomer(id, updateRequest))
                 .isInstanceOf(RequestValidateException.class)
                 .hasMessage("No data changes found");
-
         // Then
         verify(customerDao, never()).updateCustomer(any());
     }
