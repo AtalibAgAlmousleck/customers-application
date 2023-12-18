@@ -1,7 +1,7 @@
 services:
   db:
     container_name: postgres
-    image: postgres
+    image: postgres:14.1
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: Admin
@@ -9,23 +9,10 @@ services:
     volumes:
       - db:/data/postgres
     ports:
-      - "5432:5432"
+      - "5332:5432"
     networks:
       - db
     restart: unless-stopped
-  atalibdev-api:
-    container_name: atalidev-api
-    image: "almousleck/atalibdev-api:s1"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/customer
-    ports:
-      - "8080:8080"
-    networks:
-      - db
-    depends_on:
-      - db
-    restart: unless-stopped
-
 networks:
   db:
     driver: bridge
